@@ -34,7 +34,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 /*
  * This OpMode illustrates how to program your robot to drive field relative.  This means
  * that the robot drives the direction you push the joystick regardless of the current orientation
@@ -49,9 +48,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  *
  */
-@TeleOp(name = "Robot: Field Relative Mecanum Drive", group = "Robot")
-@Disabled
-public class TeleopPOVDrive extends OpMode {
+@TeleOp
+
+public class POVDriveNoEncoder extends OpMode {
     // This declares the four motors needed
     DcMotor fl;
     DcMotor fr;
@@ -72,25 +71,25 @@ public class TeleopPOVDrive extends OpMode {
         // motors are opposite to the right ones.
 
         bl.setDirection(DcMotor.Direction.REVERSE);
-        fl.setDirection(DcMotor.Direction.REVERSE);
+        br.setDirection(DcMotor.Direction.REVERSE);
 
         // This uses RUN_USING_ENCODER to be more accurate.   If you don't have the encoder
         // wires, you should remove these
-        fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
     @Override
     public void loop() {
-        drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+        drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
     }
 
     public void drive(double forward, double strafe, double rotate) {
         double flPower = forward + strafe + rotate;
-        double frPower = forward -strafe - rotate;
+        double frPower = forward - strafe - rotate;
         double blPower = forward - strafe + rotate;
         double brPower = forward + strafe - rotate;
 
