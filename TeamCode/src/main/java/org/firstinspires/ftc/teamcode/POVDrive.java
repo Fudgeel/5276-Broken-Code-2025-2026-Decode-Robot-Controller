@@ -56,9 +56,6 @@ public class POVDrive extends OpMode {
     DcMotor bl;
     DcMotor br;
 
-    // This declares the IMU needed to get the current direction the robot is facing
-    IMU imu;
-
     @Override
     public void init() {
         fl = hardwareMap.get(DcMotor.class, "fl");

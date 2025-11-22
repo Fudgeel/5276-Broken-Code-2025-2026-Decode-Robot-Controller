@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -23,36 +25,37 @@ public class LiftMechanism {
         leftLift = hardwareMap.get(DcMotor.class, "left_lift");
         rightLift = hardwareMap.get(DcMotor.class, "right_lift");
 
-        leftLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public void lift(String direction) {
-        if (direction == "up") {
+    public void lift(double direction) {
+        //Ascent
+        if (direction >= 0) {
 
             leftLift.setTargetPosition((int) (rotationCount * ticks));
             rightLift.setTargetPosition((int) (rotationCount * ticks));
 
-            leftLift.setPower(upSpeed);
-            rightLift.setPower(upSpeed);
+            leftLift.setPower(upSpeed * gamepad2.right_trigger);
+            rightLift.setPower(upSpeed * gamepad2.right_trigger);
 
-            leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
-        else{
+        //Descent
+        else if (direction <= 0){
+
             leftLift.setTargetPosition(0);
             rightLift.setTargetPosition(0);
 
-            leftLift.setPower(downSpeed);
-            rightLift.setPower(downSpeed);
+            leftLift.setPower(downSpeed * gamepad1.left_trigger);
+            rightLift.setPower(downSpeed * gamepad1.left_trigger);
 
-            leftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            rightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
+
+
 
 
     }

@@ -51,7 +51,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  *
  */
 @TeleOp
-@Disabled
 public class FieldRelativeDrive extends OpMode {
     // This declares the four motors needed
     DcMotor fl;

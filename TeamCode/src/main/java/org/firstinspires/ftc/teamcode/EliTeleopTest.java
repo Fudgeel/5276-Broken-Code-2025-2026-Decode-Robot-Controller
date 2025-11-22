@@ -37,19 +37,20 @@ public class EliTeleopTest extends OpMode {
     @Override
     public void loop() {
 
+        //Lift Mechanism
+        lift.lift(gamepad2.right_trigger-gamepad2.left_trigger);
+
+        //Drivetrain
         drive.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
+        //Intake and flywheel - running continiously
         intake.setPower(1);
         flywheel.setPower(1);
+
         if (gamepad1.right_trigger > 0) {
             launch();
         }
-        if (gamepad2.right_trigger > 0) {
-            lift.lift("up");
-        }
-        if (gamepad2.left_trigger > 0) {
-            lift.lift("down");
-        }
+
     }
 
     public void launch() {
